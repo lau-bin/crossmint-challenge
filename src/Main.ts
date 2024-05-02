@@ -1,4 +1,4 @@
-import { MapGatewayImpl } from "./MapGateway";
+import { MapError, MapGatewayImpl } from "./MapGateway";
 import { parseArgs } from "node:util"
 import { getLogger } from "./Logger";
 import { MapModel } from "./MapModel";
@@ -14,8 +14,12 @@ import 'dotenv/config'
   const mapModel = new MapModel(mapGateway, mapReader);
   let pendingCalls: Array<Promise<any>>;
   let goalMap = await mapGateway.retrieveGoalMap();
+  if (!(goalMap instanceof MapError)) {
+    logger.info("Error retrieving goal map.");
+    return;
+  }
   if (clear) {
-    pendingCalls = await mapModel.clearMap(goalMap)
+    pendingCalls = await mapModel.clearMap(goalMap.goal[0].length)
   } else {
     pendingCalls = await mapModel.fillMap(goalMap);
   }

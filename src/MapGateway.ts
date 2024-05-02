@@ -142,11 +142,13 @@ export type SoloonColor = "blue" | "red" | "purple" | "white";
 export type ComethDirection = "up" | "down" | "right" | "left";
 
 export class MapError extends Error {
-
+  constructor(){
+    super();
+  }
 }
 
 
 export type MapElement = "POLYANET" | "SOLOON" | "COMETH" | "SPACE";
 export type MapData = {
-  goal: [MapElement][]
+  goal: (MapElement[])[]
 }

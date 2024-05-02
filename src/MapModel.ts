@@ -9,9 +9,8 @@ export class MapModel {
   constructor(private mapGateway: MapGateway, private mapEntity: MapReader) {
   }
 
-  // clears current map, it calls a web scrapper to get it's current state
-  async clearMap(mapData: MapData) {
-    const width = mapData.goal[0].length;
+  // clears current map, it calls a web scraper to get it's current state
+  async clearMap(width: number) {
     let pendingCalls: Array<Promise<any>> = [];
     
     const elements = await this.mapEntity.readFromWeb(undefined);
@@ -26,12 +25,10 @@ export class MapModel {
   // creates a Megaverse
   async fillMap(goalMap: MapData) {
     let pendingCalls: Array<Promise<any>> = [];
-    if (!(goalMap instanceof MapError)) {
-      for (let row = 0; row < goalMap.goal.length; row++) {
-        for (let col = 0; col < goalMap.goal[row].length; col++) {
-          const el = goalMap.goal[row][col];
-          pendingCalls.push(this.executeCall(el, row, col, false));
-        }
+    for (let row = 0; row < goalMap.goal.length; row++) {
+      for (let col = 0; col < goalMap.goal[row].length; col++) {
+        const el = goalMap.goal[row][col];
+        pendingCalls.push(this.executeCall(el, row, col, false));
       }
     }
     return pendingCalls;
