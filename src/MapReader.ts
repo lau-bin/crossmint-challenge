@@ -3,6 +3,11 @@ import { MapElement } from "./MapGateway";
 import { CANDIDATE_ID, MAP_URL } from "./Configuration";
 
 
+// web scrapper that read the current map, not the goal
+export interface MapReader{
+  readFromWeb(props: any): Promise<MapElement[]>;
+  getElements(): MapElement[] | null;
+}
 export class MapReaderImpl implements MapReader{
   private elements: Array<MapElement> | null = null;
   private url = MAP_URL;
@@ -58,10 +63,7 @@ export class MapReaderImpl implements MapReader{
   }
 }
 
-export interface MapReader{
-  readFromWeb(props: any): Promise<MapElement[]>;
-  getElements(): MapElement[] | null;
-}
+
 
 // development only to manually test this module
 // MapEntity.fromWeb({headless: false});

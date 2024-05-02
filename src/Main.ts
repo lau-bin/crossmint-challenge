@@ -5,7 +5,7 @@ import { MapModel } from "./MapModel";
 import { MapReaderImpl } from "./MapReader";
 import 'dotenv/config'
 
-
+// main function to handle program invocation and arguments
 (async function main() {
   const logger = getLogger("main");
   let { retries, clear } = getArgs();

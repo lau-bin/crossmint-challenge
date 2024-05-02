@@ -2,11 +2,14 @@ import { MapError, MapElement, ComethDirection, SoloonColor, MapData, MapGateway
 import { getLogger } from "./Logger";
 import { MapReader } from "./MapReader";
 
+
+// Business Logic to build a Megaverse or to clear it
 export class MapModel {
   private logger = getLogger("main");
   constructor(private mapGateway: MapGateway, private mapEntity: MapReader) {
   }
 
+  // clears current map, it calls a web scrapper to get it's current state
   async clearMap(mapData: MapData) {
     const width = mapData.goal[0].length;
     let pendingCalls: Array<Promise<any>> = [];
@@ -20,6 +23,7 @@ export class MapModel {
     return pendingCalls;
   }
 
+  // creates a Megaverse
   async fillMap(goalMap: MapData) {
     let pendingCalls: Array<Promise<any>> = [];
     if (!(goalMap instanceof MapError)) {
@@ -32,7 +36,7 @@ export class MapModel {
     }
     return pendingCalls;
   }
-  async executeCall(el: MapElement, row: number, col: number, clear: boolean) {
+  private async executeCall(el: MapElement, row: number, col: number, clear: boolean) {
     if (el.includes("COMETH")) {
       if (clear) {
         this.logger.info(`Deleting cometh at (${col}, ${row})`);

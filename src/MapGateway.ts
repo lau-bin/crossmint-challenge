@@ -3,6 +3,16 @@ import { getLogger } from "./Logger";
 import { RateLimit } from "./RateLimit";
 import { API_BASE_URL, CANDIDATE_ID } from "./Configuration";
 
+
+// Gateway to interact with the Crossmint API
+export interface MapGateway{
+  createPolyanet(yAxis: number, xAxis: number): Promise<void>;
+  deletePolyanet(yAxis: number, xAxis: number): Promise<void>;
+  createSoloon(yAxis: number, xAxis: number, color: SoloonColor): Promise<void>;
+  deleteSoloon(yAxis: number, xAxis: number): Promise<void>;
+  createCometh(yAxis: number, xAxis: number, direction: ComethDirection): Promise<void>;
+  deleteCometh(yAxis: number, xAxis: number): Promise<void>;
+}
 export class MapGatewayImpl implements MapGateway{
   private baseUrl = API_BASE_URL;
   private candidateId = CANDIDATE_ID;
@@ -139,13 +149,4 @@ export class MapError extends Error {
 export type MapElement = "POLYANET" | "SOLOON" | "COMETH" | "SPACE";
 export type MapData = {
   goal: [MapElement][]
-}
-
-export interface MapGateway{
-  createPolyanet(yAxis: number, xAxis: number): Promise<void>;
-  deletePolyanet(yAxis: number, xAxis: number): Promise<void>;
-  createSoloon(yAxis: number, xAxis: number, color: SoloonColor): Promise<void>;
-  deleteSoloon(yAxis: number, xAxis: number): Promise<void>;
-  createCometh(yAxis: number, xAxis: number, direction: ComethDirection): Promise<void>;
-  deleteCometh(yAxis: number, xAxis: number): Promise<void>;
 }

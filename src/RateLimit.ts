@@ -1,6 +1,7 @@
 import { getLogger } from "./Logger";
 
 
+// progressive rate limiter utility
 export class RateLimit {
   private logger = getLogger("rate-limit");
   private queue: Array<[() => void, (value: any) => void, (reason?: any) => void]> = [];
