@@ -1,0 +1,24 @@
+{
+  "name": "crossmint-megaverse",
+  "version": "1.0.0",
+  "description": "Challenge for the Blockchain Dev possition",
+  "main": "index.js",
+  "scripts": {
+    "test-map": "npx ts-node src/MapEntity.ts",
+    "clean-megaverse": "export DEVELOPMENT=TRUE && npx ts-node src/Main.ts -r 5 -c true",
+    "build-megaverse": "export DEVELOPMENT=TRUE && npx ts-node src/Main.ts -r 5",
+    "debug-build": "npx tsc"
+  },
+  "author": "Lautaro Cutri",
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/test": "^1.43.1",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "puppeteer": "^22.7.1",
+    "rxjs": "^7.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "winston": "^3.13.0"
+  }
+}
